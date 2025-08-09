@@ -1,16 +1,39 @@
 ---
-
+import Layout from '../components/Layout.astro';
+import Footer from '../components/Footer.astro';
 ---
 
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
-	</head>
-	<body>
-		<h1>Astro</h1>
-	</body>
-</html>
+<Layout title="Pedro Pregueiro">
+	<main class="min-h-screen max-w-2xl mx-auto px-6 py-12 flex flex-col justify-center">
+		<!-- Name and About -->
+		<div class="space-y-8">
+			<div>
+				<h1 class="text-3xl font-bold text-gray-900 dark:text-white">
+					Pedro Pregueiro
+				</h1>
+				<p class="text-base text-gray-500 dark:text-gray-500">
+					dev, founder, yc alum. guitar hero (the instrument), burger enthusiast.
+				</p>
+			</div>
+			
+			<div class="prose prose-lg mx-auto text-left max-w-none dark:prose-invert">
+				<p>
+					I'm a software developer who loves creating digital experiences. 
+					Currently working on interesting projects and always learning something new.
+				</p>
+				<p>
+					When I'm not coding, you'll find me reading, exploring new places, or 
+					diving deep into whatever has captured my curiosity at the moment.
+				</p>
+				<p>
+					Find me on 
+					<a href="https://x.com/pedropregueiro" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:text-blue-700">Twitter</a>, 
+					<a href="https://github.com/pedropregueiro" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:text-blue-700">GitHub</a>, and 
+					<a href="https://www.linkedin.com/in/pedropregueiro/" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:text-blue-700">LinkedIn</a>.
+				</p>
+			</div>
+		</div>
+
+		<Footer />
+	</main>
+</Layout>

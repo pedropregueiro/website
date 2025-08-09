@@ -128,10 +128,23 @@ nothing to see here, i'm afraid 🤷
 								const song = track.name;
 								const trackUrl = track.url; // Last.fm track URL
 
-								nowPlayingEl.innerHTML = `
-									<div class="w-1.5 h-1.5 bg-green-700 dark:bg-green-600 rounded-full"></div>
-									<span>${song} - ${artist}</span>
-								`;
+								// Mobile: show only song title; Desktop: show both
+								const isMobile = window.innerWidth < 768;
+								
+								if (isMobile) {
+									const truncatedSong = song.length > 20 ? song.slice(0, 20) + "..." : song;
+									nowPlayingEl.innerHTML = `
+										<div class="w-1.5 h-1.5 bg-green-700 dark:bg-green-600 rounded-full"></div>
+										<span>${truncatedSong}</span>
+									`;
+								} else {
+									const truncatedSong = song.length > 25 ? song.slice(0, 25) + "..." : song;
+									const truncatedArtist = artist.length > 20 ? artist.slice(0, 20) + "..." : artist;
+									nowPlayingEl.innerHTML = `
+										<div class="w-1.5 h-1.5 bg-green-700 dark:bg-green-600 rounded-full"></div>
+										<span>${truncatedSong} - ${truncatedArtist}</span>
+									`;
+								}
 
 								// Remove any existing click handler and add new one
 								nowPlayingEl.onclick = null;
@@ -179,6 +192,47 @@ nothing to see here, i'm afraid 🤷
 					emailLink.href = "mailto:" + email;
 				}
 			});
+		</script>
+
+		<!-- GitHub Last Commit Script -->
+		<script>
+			async function fetchLastCommit() {
+				try {
+					const response = await fetch("https://api.github.com/users/pedropregueiro/events/public");
+					const events = await response.json();
+					
+					// Find the most recent push event
+					const lastPush = events.find(event => event.type === "PushEvent");
+					
+					if (lastPush && lastPush.payload && lastPush.payload.commits && lastPush.payload.commits.length > 0) {
+						const commit = lastPush.payload.commits[0];
+						const shortSha = commit.sha.slice(0, 7);
+						const repoName = lastPush.repo.name.split('/')[1]; // Get just the repo name, not user/repo
+						const commitUrl = `https://github.com/${lastPush.repo.name}/commit/${commit.sha}`;
+						
+						const lastCommitEl = document.getElementById("last-commit");
+						if (lastCommitEl) {
+							lastCommitEl.innerHTML = `
+								<span style="font-family: 'Consolas', 'Monaco', 'Courier New', monospace;">${shortSha}</span>
+							`;
+							
+							// Add click handler to open commit
+							lastCommitEl.onclick = () => {
+								window.open(commitUrl, "_blank");
+							};
+						}
+					}
+				} catch (error) {
+					console.log("Could not fetch GitHub commit data");
+					// Fail silently - no commit widget is fine
+				}
+			}
+
+			// Fetch last commit on page load
+			fetchLastCommit();
+
+			// Update every 5 minutes
+			setInterval(fetchLastCommit, 300000);
 		</script>
 	</body>
 </html>

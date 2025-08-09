@@ -15,13 +15,18 @@ const { title, description = "Personal website of Pedro Pregueiro" } = Astro.pro
 		<meta name="generator" content={Astro.generator} />
 		<title>{title}</title>
 		<meta name="description" content={description} />
-		<link rel="preconnect" href="https://fonts.googleapis.com">
-		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-		<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Merriweather:wght@300;400&display=swap" rel="stylesheet">
+		<link rel="preconnect" href="https://fonts.googleapis.com" />
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+		<link
+			href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Merriweather:wght@300;400&display=swap"
+			rel="stylesheet"
+		/>
 	</head>
-	<body class="bg-white dark:bg-gray-950 text-gray-900 dark:text-gray-50 transition-colors duration-300">
+	<body
+		class="bg-white dark:bg-gray-950 text-gray-900 dark:text-gray-50 transition-colors duration-300"
+	>
 		<slot />
-		
+
 		<!-- Console ASCII Art Easter Egg -->
 		<script>
 			console.log(`
@@ -38,24 +43,24 @@ __/\\\\\\________________________/\\\\\\\\\\\\____/\\\\\\\\\\__________________
 nothing to see here, i'm afraid 🤷
 			`);
 		</script>
-		
+
 		<!-- Theme Switching Script -->
 		<script>
-			const themes = ['system', 'light', 'dark'];
-			const themeButton = document.getElementById('theme-button');
-			const themeIcon = document.getElementById('theme-icon');
-			const themeTooltip = document.getElementById('theme-tooltip');
+			const themes = ["system", "light", "dark"];
+			const themeButton = document.getElementById("theme-button");
+			const themeIcon = document.getElementById("theme-icon");
+			const themeTooltip = document.getElementById("theme-tooltip");
 			const html = document.documentElement;
 
 			// Icon SVGs
 			const icons = {
 				system: `<path d="M20 3H4c-1.1 0-2 .9-2 2v11c0 1.1.9 2 2 2h3l-1 1v1h12v-1l-1-1h3c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zM4 16V5h16v11H4z"/>`,
 				light: `<path d="M12 7c-2.76 0-5 2.24-5 5s2.24 5 5 5 5-2.24 5-5-2.24-5-5-5zM2 13h2c.55 0 1-.45 1-1s-.45-1-1-1H2c-.55 0-1 .45-1 1s.45 1 1 1zm18 0h2c.55 0 1-.45 1-1s-.45-1-1-1h-2c-.55 0-1 .45-1 1s.45 1 1 1zM11 2v2c0 .55.45 1 1 1s1-.45 1-1V2c0-.55-.45-1-1-1s-1 .45-1 1zm0 18v2c0 .55.45 1 1 1s1-.45 1-1v-2c0-.55-.45-1-1-1s-1 .45-1 1zM5.99 4.58c-.39-.39-1.03-.39-1.41 0-.39.39-.39 1.03 0 1.41l1.06 1.06c.39.39 1.03.39 1.41 0s.39-1.03 0-1.41L5.99 4.58zm12.37 12.37c-.39-.39-1.03-.39-1.41 0-.39.39-.39 1.03 0 1.41l1.06 1.06c.39.39 1.03.39 1.41 0 .39-.39.39-1.03 0-1.41l-1.06-1.06zm1.06-10.96c.39-.39.39-1.03 0-1.41-.39-.39-1.03-.39-1.41 0l-1.06 1.06c-.39.39-.39 1.03 0 1.41s1.03.39 1.41 0l1.06-1.06zM7.05 18.36c.39-.39.39-1.03 0-1.41-.39-.39-1.03-.39-1.41 0l-1.06 1.06c-.39.39-.39 1.03 0 1.41s1.03.39 1.41 0l1.06-1.06z"/>`,
-				dark: `<path d="M9.37,5.51C9.19,6.15,9.1,6.82,9.1,7.5c0,4.08,3.32,7.4,7.4,7.4c0.68,0,1.35-0.09,1.99-0.27C17.45,17.19,14.93,19,12,19 c-3.86,0-7-3.14-7-7C5,9.07,6.81,6.55,9.37,5.51z M12,3c-4.97,0-9,4.03-9,9s4.03,9,9,9s9-4.03,9-9c0-0.46-0.04-0.92-0.1-1.36 c-0.98,1.37-2.58,2.26-4.4,2.26c-2.98,0-5.4-2.42-5.4-5.4c0-1.81,0.89-3.42,2.26-4.4C12.92,3.04,12.46,3,12,3L12,3z"/>`
+				dark: `<path d="M9.37,5.51C9.19,6.15,9.1,6.82,9.1,7.5c0,4.08,3.32,7.4,7.4,7.4c0.68,0,1.35-0.09,1.99-0.27C17.45,17.19,14.93,19,12,19 c-3.86,0-7-3.14-7-7C5,9.07,6.81,6.55,9.37,5.51z M12,3c-4.97,0-9,4.03-9,9s4.03,9,9,9s9-4.03,9-9c0-0.46-0.04-0.92-0.1-1.36 c-0.98,1.37-2.58,2.26-4.4,2.26c-2.98,0-5.4-2.42-5.4-5.4c0-1.81,0.89-3.42,2.26-4.4C12.92,3.04,12.46,3,12,3L12,3z"/>`,
 			};
 
 			// Get current theme from localStorage or default to system
-			let currentTheme = localStorage.getItem('theme') || 'system';
+			let currentTheme = localStorage.getItem("theme") || "system";
 
 			function updateIcon(theme) {
 				if (themeIcon) {
@@ -67,13 +72,13 @@ nothing to see here, i'm afraid 🤷
 			}
 
 			function applyTheme(theme) {
-				if (theme === 'system') {
-					const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-					html.classList.toggle('dark', prefersDark);
-				} else if (theme === 'dark') {
-					html.classList.add('dark');
+				if (theme === "system") {
+					const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+					html.classList.toggle("dark", prefersDark);
+				} else if (theme === "dark") {
+					html.classList.add("dark");
 				} else {
-					html.classList.remove('dark');
+					html.classList.remove("dark");
 				}
 			}
 
@@ -82,20 +87,20 @@ nothing to see here, i'm afraid 🤷
 			applyTheme(currentTheme);
 
 			// Theme button click handler
-			themeButton?.addEventListener('click', () => {
+			themeButton?.addEventListener("click", () => {
 				const currentIndex = themes.indexOf(currentTheme);
 				const nextIndex = (currentIndex + 1) % themes.length;
 				currentTheme = themes[nextIndex];
-				
-				localStorage.setItem('theme', currentTheme);
+
+				localStorage.setItem("theme", currentTheme);
 				updateIcon(currentTheme);
 				applyTheme(currentTheme);
 			});
 
 			// Listen for system theme changes when in system mode
-			window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', () => {
-				if (currentTheme === 'system') {
-					applyTheme('system');
+			window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change", () => {
+				if (currentTheme === "system") {
+					applyTheme("system");
 				}
 			});
 		</script>
@@ -108,70 +113,70 @@ nothing to see here, i'm afraid 🤷
 			async function fetchNowPlaying() {
 				try {
 					const response = await fetch(
-						`https://ws.audioscrobbler.com/2.0/?method=user.getrecenttracks&user=${LASTFM_USER}&api_key=${LASTFM_API_KEY}&format=json&limit=1`
+						`https://ws.audioscrobbler.com/2.0/?method=user.getrecenttracks&user=${LASTFM_USER}&api_key=${LASTFM_API_KEY}&format=json&limit=1`,
 					);
 					const data = await response.json();
-					
+
 					if (data.recenttracks && data.recenttracks.track && data.recenttracks.track.length > 0) {
 						const track = data.recenttracks.track[0];
-						const isNowPlaying = track['@attr'] && track['@attr'].nowplaying;
-						
-						const nowPlayingEl = document.getElementById('now-playing');
+						const isNowPlaying = track["@attr"] && track["@attr"].nowplaying;
+
+						const nowPlayingEl = document.getElementById("now-playing");
 						if (nowPlayingEl) {
 							if (isNowPlaying) {
-								const artist = track.artist['#text'] || track.artist;
+								const artist = track.artist["#text"] || track.artist;
 								const song = track.name;
 								const trackUrl = track.url; // Last.fm track URL
-								
+
 								nowPlayingEl.innerHTML = `
 									<div class="w-1.5 h-1.5 bg-green-700 dark:bg-green-600 rounded-full"></div>
 									<span>${song} - ${artist}</span>
 								`;
-								
+
 								// Remove any existing click handler and add new one
 								nowPlayingEl.onclick = null;
 								nowPlayingEl.onclick = () => {
 									if (trackUrl) {
-										window.open(trackUrl, '_blank');
+										window.open(trackUrl, "_blank");
 									}
 								};
 							} else {
 								// Clear the content when not currently playing
-								nowPlayingEl.innerHTML = '';
+								nowPlayingEl.innerHTML = "";
 								nowPlayingEl.onclick = null;
 							}
 						}
 					} else {
 						// Clear content if no tracks found
-						const nowPlayingEl = document.getElementById('now-playing');
+						const nowPlayingEl = document.getElementById("now-playing");
 						if (nowPlayingEl) {
-							nowPlayingEl.innerHTML = '';
+							nowPlayingEl.innerHTML = "";
 						}
 					}
 				} catch (error) {
-					console.log('Could not fetch Last.fm data');
+					console.log("Could not fetch Last.fm data");
 					// Fail silently - no music widget is fine
 				}
 			}
 
 			// Fetch now playing on page load
 			fetchNowPlaying();
-			
+
 			// Update every 30 seconds
 			setInterval(fetchNowPlaying, 30000);
 		</script>
 
 		<!-- Email Obfuscation Script -->
 		<script>
-			document.addEventListener('DOMContentLoaded', function() {
-				const emailLink = document.getElementById('email-link');
+			document.addEventListener("DOMContentLoaded", function () {
+				const emailLink = document.getElementById("email-link");
 				if (emailLink) {
-					const user = 'pedropregueiro';
-					const domain = 'gmail';
-					const tld = 'com';
-					const email = user + '@' + domain + '.' + tld;
-					
-					emailLink.href = 'mailto:' + email;
+					const user = "pedropregueiro";
+					const domain = "gmail";
+					const tld = "com";
+					const email = user + "@" + domain + "." + tld;
+
+					emailLink.href = "mailto:" + email;
 				}
 			});
 		</script>
